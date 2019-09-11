@@ -14,4 +14,12 @@
 
 class Movie < ApplicationRecord
   belongs_to :genre
+
+  validate :title_brackets_validator
+  
+  private
+
+  def title_brackets_validator
+    
+  end
 end
