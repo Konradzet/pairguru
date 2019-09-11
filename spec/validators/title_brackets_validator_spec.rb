@@ -85,3 +85,5 @@ class Validatable
     @title = title
   end
 end
+
+
