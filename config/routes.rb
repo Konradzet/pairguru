@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'comments/create'
+  
   devise_for :users
 
   root "home#welcome"
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
   resources :movies, only: [:index, :show] do
+    resources :comments
     member do
       get :send_info
     end
@@ -16,4 +17,5 @@ Rails.application.routes.draw do
       get :export
     end
   end
+  
 end

@@ -20,6 +20,5 @@ class Movie < ApplicationRecord
   private
 
   def title_brackets_validator
-    
   end
 end
