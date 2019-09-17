@@ -19,16 +19,22 @@ class CommentsController < ApplicationController
     redirect_to movie_path(@movie)
   end
 
+  def top_commentators
+    @commentators = Comment
+      .select("COUNT(comments.user_id) as comments_count, users.*")
+      .joins(:user)
+      .where("comments.created_at >= :date", date: 7.days.ago)
+      .group(:user_id)
+      .order("comments_count DESC")
+      .limit(10)
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:body, :movie_id)
   end
 
-  def top_commentators
-    User.joins(:comments).where("comments.created_at > ?", 1.week.ago).distinct
-      .order(comments_count: :desc).first(10)
-
-  end
+  
 
   def set_movie
     @movie = Movie.find(params[:movie_id])
