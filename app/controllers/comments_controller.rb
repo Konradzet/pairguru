@@ -9,6 +9,13 @@ class CommentsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def destroy
+    @comment = @movie.comments.find(params[:id])
+    @comment.destroy
+
+    redirect_to movie_path(@movie)
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:body, :movie_id)
