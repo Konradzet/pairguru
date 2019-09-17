@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_movie
+  before_action :set_movie, only: [:create, :destroy]
   before_action :authenticate_user!
 
   def create
@@ -22,6 +22,12 @@ class CommentsController < ApplicationController
   private
   def comment_params
     params.require(:comment).permit(:body, :movie_id)
+  end
+
+  def top_commentators
+    User.joins(:comments).where("comments.created_at > ?", 1.week.ago).distinct
+      .order(comments_count: :desc).first(10)
+
   end
 
   def set_movie

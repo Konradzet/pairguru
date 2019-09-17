@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root "home#welcome"
+  get :top_commentators, controller: :comments, action: :top_commentators
   resources :genres, only: :index do
     member do
       get "movies"
