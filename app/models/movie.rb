@@ -14,12 +14,11 @@
 
 class Movie < ApplicationRecord
   belongs_to :genre
-
+  has_many :comments
   validate :title_brackets_validator
   
   private
 
   def title_brackets_validator
-    
   end
 end

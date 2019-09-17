@@ -1,0 +1,11 @@
+- @comments.each do |comment|
+  .row
+    .col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2
+      %br/
+      %b= comment.user.try(:name)
+      = comment.body
+      - if comment.user_id == current_user.id
+        = link_to 'Delete', [comment.movie, comment], method: :delete, data: { confirm: 'Are you sure you want to delete this comment?' }
+
+        
+     
