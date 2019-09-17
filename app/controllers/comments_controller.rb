@@ -5,8 +5,11 @@ class CommentsController < ApplicationController
   def create
     @comment = @movie.comments.new(comment_params)
     @comment.user = current_user
-    @comment.save
-    redirect_back(fallback_location: root_path)
+    if @comment.save
+      redirect_back(fallback_location: root_path, notice: "Comment added")
+    else
+      redirect_back(fallback_location: root_path, alert: "Error when adding comment")
+    end
   end
 
   def destroy

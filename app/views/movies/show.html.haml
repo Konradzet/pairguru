@@ -3,6 +3,9 @@
   = @movie.description
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
-  = render 'comment_form'
+  - unless @movie.comments.map(&:user_id).flatten.include?(current_user.id)
+    = render 'comment_form'
+  - else
+    %p= 'You already added comment.Please delete old one if you want to add new'
   = render 'comments'
    
